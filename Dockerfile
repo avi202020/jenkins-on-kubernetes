@@ -20,5 +20,7 @@ RUN /usr/local/bin/install-plugins.sh kubernetes
 
 # install Maven
 USER root
-RUN apt-get update && apt-get install -y maven
+RUN apt-get update
+RUN apt-get install -y maven
+RUN apt-get install less
 USER jenkins
