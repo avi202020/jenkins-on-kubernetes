@@ -76,13 +76,13 @@
                     <podRetention class="org.csanchez.jenkins.plugins.kubernetes.pod.retention.Default"/>
                 </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
             </templates>
-            <serverUrl>https://192.168.99.106:8443</serverUrl>
+            <serverUrl>{SERVER_URL}</serverUrl>
             <skipTlsVerify>false</skipTlsVerify>
             <addMasterProxyEnvVars>false</addMasterProxyEnvVars>
             <capOnlyOnAlivePods>false</capOnlyOnAlivePods>
             <webSocket>false</webSocket>
             <directConnection>false</directConnection>
-            <jenkinsUrl>http://172.17.0.5:8080</jenkinsUrl>
+            <jenkinsUrl>{JENKINS_URL}</jenkinsUrl>
             <containerCap>10</containerCap>
             <retentionTimeout>5</retentionTimeout>
             <connectTimeout>5</connectTimeout>
