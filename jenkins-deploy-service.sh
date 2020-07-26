@@ -11,8 +11,15 @@ SERVER_URL="https://$MINIKUBE_IP:$TARGET_PORT"
 JENKINS_URL="http://$JENKINS_POD_IP:8080"
 
 PWD=$(pwd)
-sed -i "" "s|{JENKINS_URL}|$JENKINS_URL|g" $PWD/var/jenkins_home/config.xml
-sed -i "" "s|{SERVER_URL}|$SERVER_URL|g" $PWD/var/jenkins_home/config.xml
+if [ ! -d $PWD/dest/var/jenkins_home/jobs/test1 ]; then
+  mkdir -p $PWD/dest/var/jenkins_home/jobs/test1;
+fi
+
+cp $PWD/var/jenkins_home/config.xml $PWD/dest/var/jenkins_home/config.xml
+cp $PWD/var/jenkins_home/config.xml $PWD/dest/var/jenkins_home/jobs/test1/config.xml
+
+sed -i "" "s|{JENKINS_URL}|$JENKINS_URL|g" $PWD/dest/var/jenkins_home/config.xml
+sed -i "" "s|{SERVER_URL}|$SERVER_URL|g" $PWD/dest/var/jenkins_home/config.xml
 
 JENKINS_PORT=$(kubectl get service -o json | jq -r '.items[] | select (.metadata.name=="jenkins") | .spec.ports[].nodePort')
 JENKINS_UI_URL="http://$MINIKUBE_IP:$JENKINS_PORT"
