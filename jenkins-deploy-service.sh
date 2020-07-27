@@ -11,6 +11,7 @@ SERVER_URL="https://$MINIKUBE_IP:$TARGET_PORT"
 JENKINS_URL="http://$JENKINS_POD_IP:8080"
 
 PWD=$(pwd)
+rm -rf $PWD/dest
 if [ ! -d $PWD/dest/var/jenkins_home/jobs/test1 ]; then
   mkdir -p $PWD/dest/var/jenkins_home/jobs/test1;
 fi
