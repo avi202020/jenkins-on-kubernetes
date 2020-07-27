@@ -21,6 +21,9 @@ cp $PWD/var/jenkins_home/config.xml $PWD/dest/var/jenkins_home/jobs/test1/config
 sed -i "" "s|{JENKINS_URL}|$JENKINS_URL|g" $PWD/dest/var/jenkins_home/config.xml
 sed -i "" "s|{SERVER_URL}|$SERVER_URL|g" $PWD/dest/var/jenkins_home/config.xml
 
+JENKINS_POD_NAME=$(kubectl get pod -o json | jq -r .items[0].metadata.name)
+kubectl cp dest/var $JENKINS_POD_NAME:/
+
 JENKINS_PORT=$(kubectl get service -o json | jq -r '.items[] | select (.metadata.name=="jenkins") | .spec.ports[].nodePort')
 JENKINS_UI_URL="http://$MINIKUBE_IP:$JENKINS_PORT"
 echo "Jenkins is reachable by $JENKINS_UI_URL"
