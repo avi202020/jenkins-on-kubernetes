@@ -12,9 +12,7 @@ JENKINS_URL="http://$JENKINS_POD_IP:8080"
 
 PWD=$(pwd)
 rm -rf $PWD/dest
-if [ ! -d $PWD/dest/var/jenkins_home/jobs/test1 ]; then
-  mkdir -p $PWD/dest/var/jenkins_home/jobs/test1;
-fi
+mkdir -p $PWD/dest/var/jenkins_home/jobs/test1;
 
 cp $PWD/var/jenkins_home/config.xml $PWD/dest/var/jenkins_home/config.xml
 cp $PWD/var/jenkins_home/config.xml $PWD/dest/var/jenkins_home/jobs/test1/config.xml
