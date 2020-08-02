@@ -35,7 +35,17 @@ function config() {
     kubectl cp dest/var $JENKINS_POD_NAME:/
 }
 
+function restart() {
+    JENKINS_PORT=$(kubectl get service -o json | jq -r '.items[] | select (.metadata.name=="jenkins") | .spec.ports[].nodePort')
+    JENKINS_UI_URL="http://$MINIKUBE_IP:$JENKINS_PORT"
+
+    curl -o dest/jenkins-cli.jar -O -L  $JENKINS_UI_URL/jnlpJars/jenkins-cli.jar
+    java -jar dest/jenkins-cli.jar -s $JENKINS_UI_URL/ restart
+
+    echo "Jenkins is reachable by $JENKINS_UI_URL"
+}
 
 build
 deploy
 config
+restart
