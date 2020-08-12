@@ -1,4 +1,4 @@
-from jenkins/jenkins:2.222.4
+FROM jenkins/jenkins:2.222.4
 
 # Distributed Builds plugins
 RUN /usr/local/bin/install-plugins.sh ssh-slaves
@@ -14,6 +14,7 @@ RUN /usr/local/bin/install-plugins.sh htmlpublisher
 # UI
 RUN /usr/local/bin/install-plugins.sh greenballs
 RUN /usr/local/bin/install-plugins.sh simple-theme-plugin
+RUN /usr/local/bin/install-plugins.sh saferestart
 
 # Scaling
 RUN /usr/local/bin/install-plugins.sh kubernetes
