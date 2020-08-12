@@ -9,9 +9,9 @@ function build() {
 }
 
 function deploy() {
-    kubectl apply -f jenkins-deployment.yaml
-    kubectl apply -f jenkins-rbac.yaml
-    kubectl apply -f jenkins-service.yaml
+    kubectl apply -f k8s/jenkins-deployment.yaml
+    kubectl apply -f k8s/jenkins-rbac.yaml
+    kubectl apply -f k8s/jenkins-service.yaml
 }
 
 function config() {
