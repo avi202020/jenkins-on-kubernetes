@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+function validate() {
+    if [ $(minikube status --format "{{.Host}}|{{.Kubelet}}|{{.APIServer}}") != "Running|Running|Running" ];
+    then
+        echo "Minikube is not running. Start Minikube with 'minikube start' command"
+        exit
+    fi
+}
+
 function build() {
     REPO=smpavlenko/my-jenkins-image
     TAG=1.0
@@ -46,6 +54,7 @@ function restart() {
     echo "Jenkins is reachable by $JENKINS_UI_URL"
 }
 
+validate
 build
 deploy
 config
