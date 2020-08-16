@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 function validate() {
+    echo "Checking if Minikube is running"
     if [ $(minikube status --format "{{.Host}}|{{.Kubelet}}|{{.APIServer}}") != "Running|Running|Running" ];
     then
         echo "Minikube is not running. Start Minikube with 'minikube start' command"
@@ -9,6 +10,7 @@ function validate() {
 }
 
 function build() {
+    echo "Building docker container"
     REPO=smpavlenko/my-jenkins-image
     TAG=1.0
 
@@ -17,12 +19,14 @@ function build() {
 }
 
 function deploy() {
+    echo "Deploying on Kubernetes"
     kubectl apply -f k8s/jenkins-deployment.yaml
     kubectl apply -f k8s/jenkins-rbac.yaml
     kubectl apply -f k8s/jenkins-service.yaml
 }
 
 function config() {
+    echo "Configuring Jenkins"
     MINIKUBE_IP=$(minikube ip)
     TARGET_PORT=$(kubectl get service -o json | jq -r '.items[] | select (.metadata.name=="kubernetes") | .spec.ports[].targetPort')
     JENKINS_POD_IP=$(kubectl get pods -o json | jq -r '.items[] | select (.metadata.labels.app=="jenkins") | .status.podIP')
@@ -44,6 +48,7 @@ function config() {
 }
 
 function restart() {
+    echo "Restarting Jenkins"
     MINIKUBE_IP=$(minikube ip)
     JENKINS_PORT=$(kubectl get service -o json | jq -r '.items[] | select (.metadata.name=="jenkins") | .spec.ports[].nodePort')
     JENKINS_UI_URL="http://$MINIKUBE_IP:$JENKINS_PORT"
