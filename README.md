@@ -14,16 +14,17 @@ Architecture of the presented solution. It makes use of Minikube to run K8s engi
 ## Components
 The system consists of
 * Docker container which uses open source jenkins container with necessary plugins
+* Minikube which makes it easy to run Kubernetes locally
 * K8s components: Deployment, ClusterRoleBinding and Service
  
 
 ## Prerequisites
 Following tools need to be installed locally
-* minikube
-* docker
-* kubectl
-* java
-* jq
+* [minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/)
+* [docker](https://docs.docker.com/get-docker/)
+* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* [java](https://java.com/en/download/help/download_options.xml)
+* [jq](https://stedolan.github.io/jq/download/)
 
 
 ## Deployment
